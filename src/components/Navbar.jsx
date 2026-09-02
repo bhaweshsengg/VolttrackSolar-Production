@@ -15,7 +15,20 @@ export default function Navbar() {
       <div className="topbar">
         <div className="container topbar-inner">
           <span><Icon name="pin" size={15}/> Serving homes & businesses across New Zealand</span>
-          <span><Icon name="phone" size={15}/> NZ solar specialists</span>
+          <span className="contact-actions">
+  <span className="specialist-text">
+    <Icon name="phone" size={15} />
+    <a href="tel:+64224266006" className="topbar-phone">
+   NZ solar specialists
+  </a>
+    
+  </span>
+
+  <a href="https://wa.me/64224266006?text=Hi%20VoltTrack%2C%20I%27d%20like%20a%20free%20solar%20quote."target="_blank">
+    +64 22 426 6006
+  </a>
+
+</span>
         </div>
       </div>
       <header className="navbar">

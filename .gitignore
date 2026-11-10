@@ -5,3 +5,7 @@ dist/
 !.env.example
 .DS_Store
 npm-debug.log*
+
+# Customer enquiry submissions and logs (privacy & data protection)
+server/data/
+

@@ -7,7 +7,12 @@
     "dev": "concurrently \"vite\" \"node --watch server/index.js\"",
     "build": "vite build",
     "start": "node server/index.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:smtp": "node server/scripts/test-smtp.js",
+    "test:api": "node server/scripts/test-api.js",
+    "test": "node server/scripts/test-suite.js",
+    "test:all": "node server/scripts/test-suite.js && node server/scripts/test-api.js && node server/scripts/test-smtp.js",
+    "resend": "node server/scripts/resend-enquiry.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

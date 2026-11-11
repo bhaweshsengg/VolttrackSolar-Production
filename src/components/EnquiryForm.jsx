@@ -139,12 +139,12 @@ export default function EnquiryForm({ type = 'quote', compact = false }) {
         <Field label="Location / suburb" name="location" value={values.location} onChange={update} error={errors.location} placeholder="e.g. Hamilton, Waikato" maxLength={fieldLimits.location} required />
         <div className="field field-full">
           <label htmlFor="message">How can we help? <span>*</span></label>
-          <textarea id="message" name="message" rows="5" maxLength={fieldLimits.message} value={values.message} onChange={update} placeholder="Tell us about your property, energy goals or solar requirements…" aria-invalid={!!errors.message} aria-describedby={errors.message ? 'message-error' : undefined} required/>
+          <textarea id="message" name="message" rows="5" maxLength={fieldLimits.message} value={values.message} onChange={update} placeholder="Tell us about your property, energy goals or solar requirements…" aria-invalid={!!errors.message} aria-describedby={errors.message ? 'message-error' : undefined} required />
           {errors.message && <small id="message-error" className="error">{errors.message}</small>}
         </div>
       </div>
-      <FormStatus status={status}/>
-      <button type="submit" className="button button-primary" disabled={submitting}>
+      <FormStatus status={status} />
+      <button type="submit" className="button button-primary" style={{ marginTop: "20px" }} disabled={submitting}>
         {submitting ? 'Sending…' : type === 'quote' ? 'Get A Free Quote' : 'Send Enquiry'} <span>→</span>
       </button>
       <p className="privacy-note">Your details are used only to respond to your solar enquiry.</p>

@@ -17,6 +17,7 @@ export function createTransporter() {
     host: config.smtp.host,
     port: config.smtp.port,
     secure: config.smtp.secure, // SSL/TLS on port 465
+    family: 4,                  // Force IPv4 to prevent serverless IPv6 DNS timeouts
     auth: {
       user: config.smtp.user,
       pass: config.smtp.password,

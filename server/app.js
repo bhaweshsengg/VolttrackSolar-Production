@@ -53,10 +53,23 @@ const rateLimiter = new RateLimiter(
  * Supports both /api/health and /health
  */
 app.get(['/api/health', '/health'], (_req, res) => {
+  const missing = [];
+  if (!config.smtp.host) missing.push('SMTP_HOST');
+  if (!config.smtp.user) missing.push('SMTP_USER');
+  if (!config.smtp.password) missing.push('SMTP_PASSWORD');
+
   res.json({
     ok: true,
     service: 'VoltTrackSolar Solutions API',
     smtpConfigured: config.isSmtpConfigured(),
+    diagnostics: {
+      hasHost: Boolean(config.smtp.host),
+      hasUser: Boolean(config.smtp.user),
+      hasPassword: Boolean(config.smtp.password),
+      port: config.smtp.port,
+      secure: config.smtp.secure,
+      missingConfig: missing,
+    },
     timestamp: new Date().toISOString()
   });
 });
@@ -127,7 +140,7 @@ app.post(['/api/enquiries', '/enquiries'], async (req, res) => {
       userAgent: req.get('user-agent') || 'unknown',
     });
 
-    console.log(`[ENQUIRY RECEIVED] Saved enquiry ${record.id} from ${data.name} <${data.email}>`);
+    console.log(`[ENQUIRY RECEIVED] Saved enquiry ${record.id} (type: ${data.formType || 'quote'})`);
 
     // 5. Verify SMTP configuration before sending
     if (!config.isSmtpConfigured()) {

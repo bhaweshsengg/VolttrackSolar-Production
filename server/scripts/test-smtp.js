@@ -4,6 +4,7 @@ import tls from 'tls';
 import { config } from '../config.js';
 import { verifySmtp, createTransporter } from '../email/transporter.js';
 import { dispatchEnquiryEmails } from '../email/dispatcher.js';
+import { saveEnquiry } from '../storage/enquiryStore.js';
 
 async function runDiagnostics() {
   console.log('====================================================');
@@ -101,8 +102,7 @@ async function runDiagnostics() {
       console.error('✗ Cannot send test email: SMTP_PASSWORD is missing.');
     } else {
       try {
-        const testPayload = {
-          id: `TEST-${Date.now()}`,
+        const savedRecord = await saveEnquiry({
           formType: 'quote',
           name: 'VoltTrack Test User',
           email: config.businessEmail, // sends acknowledgement to business email for testing
@@ -110,10 +110,18 @@ async function runDiagnostics() {
           propertyType: 'Residential home',
           location: 'Hamilton, Waikato',
           message: 'This is an automated test enquiry verifying the VoltTrack Solar email integration.',
-          submittedAtNZ: new Date().toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' })
-        };
+        });
 
-        const dispatchResult = await dispatchEnquiryEmails(testPayload);
+        const dispatchResult = await dispatchEnquiryEmails({
+          ...savedRecord,
+          formType: 'quote',
+          name: 'VoltTrack Test User',
+          email: config.businessEmail,
+          phone: '021 123 4567',
+          propertyType: 'Residential home',
+          location: 'Hamilton, Waikato',
+          message: 'This is an automated test enquiry verifying the VoltTrack Solar email integration.',
+        });
         console.log('✓ Test Email Dispatch Results:');
         console.log(`  - Business Notification: ${dispatchResult.business.sent ? 'SENT' : 'FAILED'}`);
         if (dispatchResult.business.messageId) console.log(`    MessageId: ${dispatchResult.business.messageId}`);

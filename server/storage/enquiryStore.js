@@ -13,6 +13,23 @@ const DATA_DIR = isServerless
 const SUBMISSIONS_DIR = path.join(DATA_DIR, 'submissions');
 const LOG_FILE = path.join(DATA_DIR, 'enquiries-log.json');
 
+// Safe atomic file writer with Windows cross-device and existing file fallback
+async function safeWriteFile(targetPath, data) {
+  const tempPath = `${targetPath}.tmp-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  await fs.writeFile(tempPath, data, 'utf-8');
+  try {
+    await fs.rename(tempPath, targetPath);
+  } catch (err) {
+    if (err.code === 'EPERM' || err.code === 'EEXIST' || err.code === 'EBUSY') {
+      // Windows fallback when overwriting an existing file
+      await fs.copyFile(tempPath, targetPath);
+      await fs.unlink(tempPath).catch(() => {});
+    } else {
+      throw err;
+    }
+  }
+}
+
 // Ensure storage directories exist
 async function ensureDirs() {
   try {
@@ -80,11 +97,9 @@ export async function saveEnquiry(enquiryData) {
   };
 
   const filePath = path.join(SUBMISSIONS_DIR, `${id}.json`);
-  const tempPath = `${filePath}.tmp-${Date.now()}`;
 
   // Atomic file write
-  await fs.writeFile(tempPath, JSON.stringify(record, null, 2), 'utf-8');
-  await fs.rename(tempPath, filePath);
+  await safeWriteFile(filePath, JSON.stringify(record, null, 2));
 
   // Update append log
   await appendToLog(record);
@@ -107,9 +122,7 @@ export async function updateEnquiryStatus(id, statusUpdate) {
       updatedAt: new Date().toISOString(),
     };
 
-    const tempPath = `${filePath}.tmp-${Date.now()}`;
-    await fs.writeFile(tempPath, JSON.stringify(record, null, 2), 'utf-8');
-    await fs.rename(tempPath, filePath);
+    await safeWriteFile(filePath, JSON.stringify(record, null, 2));
 
     return record;
   } catch (err) {
@@ -161,9 +174,7 @@ async function appendToLog(record) {
     // Keep the latest 500 records in the log
     if (log.length > 500) log = log.slice(0, 500);
 
-    const tempLog = `${LOG_FILE}.tmp-${Date.now()}`;
-    await fs.writeFile(tempLog, JSON.stringify(log, null, 2), 'utf-8');
-    await fs.rename(tempLog, LOG_FILE);
+    await safeWriteFile(LOG_FILE, JSON.stringify(log, null, 2));
   } catch (err) {
     console.error('Failed to update enquiries log:', err.message);
   }

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import FormStatus from './FormStatus';
 
 const initial = { name: '', email: '', phone: '', propertyType: '', location: '', message: '', b_hp_field: '' };
@@ -24,7 +25,49 @@ export default function EnquiryForm({ type = 'quote', compact = false }) {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const location = useLocation();
   const title = type === 'quote' ? 'Request your free solar quote' : 'Send us an enquiry';
+
+  useEffect(() => {
+    if (!location || !location.search) return;
+    const params = new URLSearchParams(location.search);
+    const pkg = params.get('package');
+    const product = params.get('product');
+    const service = params.get('service');
+    const item = params.get('item');
+
+    if (pkg === 'small') {
+      setValues(v => ({
+        ...v,
+        propertyType: v.propertyType || 'Commercial',
+        message: v.message || "Hi VoltTrack Solar team, I am interested in getting started with the Small Package for small businesses & startups. Please provide package pricing and installation details."
+      }));
+    } else if (pkg === 'enterprise') {
+      setValues(v => ({
+        ...v,
+        propertyType: v.propertyType || 'Commercial',
+        message: v.message || "Hi VoltTrack Solar team, I would like to contact your sales engineering team regarding the Enterprise Package for our large business/facility. Please get in touch for custom solutions."
+      }));
+    } else if (product) {
+      setValues(v => ({
+        ...v,
+        propertyType: v.propertyType || 'Residential',
+        message: v.message || `Hi VoltTrack Solar team, I would like to request technical specifications, pricing, and availability for: ${product}.`
+      }));
+    } else if (service) {
+      setValues(v => ({
+        ...v,
+        propertyType: v.propertyType || 'Residential',
+        message: v.message || `Hi VoltTrack Solar team, I would like to request a consultation and quote for: ${service}.`
+      }));
+    } else if (item) {
+      setValues(v => ({
+        ...v,
+        propertyType: v.propertyType || 'Commercial',
+        message: v.message || `Hi VoltTrack Solar team, I am interested in learning more about the ${item} and how it can be integrated with our property.`
+      }));
+    }
+  }, [location.search]);
 
   const update = e => {
     const { name, value } = e.target;

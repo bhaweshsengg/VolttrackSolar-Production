@@ -1,5 +1,84 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PageHero from '../components/PageHero'; import SectionHeading from '../components/SectionHeading'; import ScrollReveal from '../components/ScrollReveal'; import Icon from '../components/Icon';
-export default function About(){return <><PageHero eyebrow="About VoltTrackSolar" title="Solar expertise with a New Zealand focus" text="Practical renewable energy solutions for homes, businesses and properties across Aotearoa."/><section className="section"><div className="container split-grid"><ScrollReveal><img className="rounded-image" src="/images/img/about.jpg" alt="Solar panels and clean energy solution"/></ScrollReveal><ScrollReveal><div><SectionHeading eyebrow="Who We Are" title="Helping New Zealand make better use of the sun" text="VoltTrackSolar Solutions is built around a simple idea: solar should be understandable, well designed and useful in everyday life. We work with homeowners and businesses to turn available roof space and energy data into practical solar solutions."/><p>Our approach brings system design, solar panel installation, battery storage and maintenance together, so customers have one clear path from first enquiry to long-term support.</p><div className="about-values"><div><Icon name="design"/><strong>Practical design</strong><span>Systems matched to the property and energy profile.</span></div><div><Icon name="check"/><strong>Quality workmanship</strong><span>Careful installation and commissioning.</span></div><div><Icon name="battery"/><strong>Future ready</strong><span>Options for storage and evolving energy needs.</span></div></div><Link className="button button-primary" to="/quote">Talk to our team <Icon name="arrow" size={18}/></Link></div></ScrollReveal></div></section><section className="section section-light"><div className="container"><SectionHeading align="center" eyebrow="Our Approach" title="A solar process without the guesswork"/><div className="process-grid"><Step n="01" title="Understand" text="We learn about your property, energy use, goals and constraints."/><Step n="02" title="Design" text="We recommend a right-sized solar and storage approach for your needs."/><Step n="03" title="Install" text="Your system is installed, tested and commissioned with care."/><Step n="04" title="Support" text="We remain available for maintenance, questions and future upgrades."/></div></div></section></>}
-function Step({n,title,text}){return <ScrollReveal><div className="process-card"><span>{n}</span><h3>{title}</h3><p>{text}</p></div></ScrollReveal>}
+import PageHero from '../components/PageHero';
+import SectionHeading from '../components/SectionHeading';
+import ScrollReveal from '../components/ScrollReveal';
+import Icon from '../components/Icon';
+
+export default function About() {
+  return (
+    <>
+      <PageHero
+        eyebrow="About VoltTrackSolar"
+        title="Solar expertise with a New Zealand focus"
+        text="Practical renewable energy solutions for homes, businesses and properties across Aotearoa."
+      />
+
+      <section className="section">
+        <div className="container split-grid">
+          <ScrollReveal>
+            <img className="rounded-image" src="/images/img/about.jpg" alt="Solar panels and clean energy solution" />
+          </ScrollReveal>
+          <ScrollReveal>
+            <div>
+              <SectionHeading
+                eyebrow="Who We Are"
+                title="Helping New Zealand make better use of the sun"
+                text="VoltTrackSolar Solutions is built around a simple idea: solar should be understandable, well designed and useful in everyday life. We work with homeowners and businesses to turn available roof space and energy data into practical solar solutions."
+              />
+              <p>Our approach brings system design, solar panel installation, battery storage and maintenance together, so customers have one clear path from first enquiry to long-term support.</p>
+              <div className="about-values">
+                <div>
+                  <Icon name="design" />
+                  <strong>Practical design</strong>
+                  <span>Systems matched to the property and energy profile.</span>
+                </div>
+                <div>
+                  <Icon name="check" />
+                  <strong>Quality workmanship</strong>
+                  <span>Careful installation and commissioning.</span>
+                </div>
+                <div>
+                  <Icon name="battery" />
+                  <strong>Future ready</strong>
+                  <span>Options for storage and evolving energy needs.</span>
+                </div>
+              </div>
+              <Link className="button button-primary" to="/quote">
+                Talk to our team <Icon name="arrow" size={18} />
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="section section-light">
+        <div className="container">
+          <SectionHeading
+            align="center"
+            eyebrow="Our Approach"
+            title="A solar process without the guesswork"
+          />
+          <div className="process-grid">
+            <Step n="01" title="Understand" text="We learn about your property, energy use, goals and constraints." />
+            <Step n="02" title="Design" text="We recommend a right-sized solar and storage approach for your needs." />
+            <Step n="03" title="Install" text="Your system is installed, tested and commissioned with care." />
+            <Step n="04" title="Support" text="We remain available for maintenance, questions and future upgrades." />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function Step({ n, title, text }) {
+  return (
+    <ScrollReveal>
+      <div className="process-card">
+        <span>{n}</span>
+        <h3>{title}</h3>
+        <p>{text}</p>
+      </div>
+    </ScrollReveal>
+  );
+}

@@ -4,6 +4,7 @@ import Icon from '../components/Icon';
 import ScrollReveal from '../components/ScrollReveal';
 import SectionHeading from '../components/SectionHeading';
 import EnquiryForm from '../components/EnquiryForm';
+import PackagesSection from '../components/PackagesSection';
 
 const slides = [
   { image: '/images/img/carousel-1.jpg', title: 'Smarter Solar Energy For New Zealand', text: 'Generate more of your own clean electricity with a solar system designed around your home, business and energy goals.' },
@@ -48,151 +49,135 @@ export default function Home() {
     {/* <section className="section section-light"><div className="container"><SectionHeading align="center" eyebrow="Our Services" title="Solar solutions for the way New Zealand lives and works" text="From your first site assessment to long-term maintenance, we make solar easier to understand and easier to manage."/><div className="service-grid">{services.map(([icon,title,text])=><ScrollReveal key={title}><article className="service-card"><div className="service-icon"><Icon name={icon}/></div><h3>{title}</h3><p>{text}</p><Link to="/services" className="card-link">Learn more <Icon name="arrow" size={16}/></Link></article></ScrollReveal>)}</div></div></section> */}
 
     
-<section class="section-light">
-  <div class="container">
+<section className="section section-light" id="what-we-do">
+  <div className="container">
+    <SectionHeading
+      align="center"
+      eyebrow="What We Do"
+      title="Complete Solar, Thermal &amp; Electrical Solutions"
+      text="Designed for New Zealand homes, commercial premises and farms. Explore our 6 core clean energy capabilities."
+    />
  
-    <div class="section-heading">
-      <span class="eyebrow">Our Services</span>
-      <h2>Solar solutions for the way New Zealand lives and works</h2>
-      <p>From your first site assessment to long-term maintenance, we make solar easier to understand and easier to manage.</p>
-    </div>
- 
-    <div class="service-grid">
- 
-      <div>
-        <article class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2f7d5c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3.2"/>
-              <path d="M12 3.5v2.2M12 18.3v2.2M4.8 12H7M17 12h2.2M6.5 6.5l1.5 1.5M16 16l1.5 1.5M17.5 6.5 16 8M8 16l-1.5 1.5" stroke-opacity=".85"/>
-            </svg>
+    <div className="service-grid">
+      <ScrollReveal>
+        <article className="service-card">
+          <div className="service-icon">
+            <Icon name="sun" size={26} />
           </div>
-          <div class="service-card__body">
-            <div class="service-card__head">
-              <h3>Residential Solar</h3>
-              <p class="service-card__label">01</p>
+          <div className="service-card__body">
+            <div className="service-card__head">
+              <h3>Solar PV Systems</h3>
+              <p className="service-card__label">01</p>
             </div>
-            <p>Smart rooftop solar solutions for Kiwi homes, designed to fit your roof, household usage and future energy plans.</p>
-              <a class="card-link" href="/services">Learn more
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+            <p>High-efficiency Tier-1 N-Type TOPCon panels and hybrid inverters engineered for high yield and rapid ROI across New Zealand.</p>
+            <Link className="card-link" to="/services#solar-pv">
+              <span>Explore Solar PV</span>
+              <Icon name="arrow" size={16} />
+            </Link>
           </div>
         </article>
-      </div>
- 
-      <div>
-        <article class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2f7d5c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 20V9.5L9 5l6 4.5V20"/>
-              <path d="M15 20v-7l6-4v11"/>
-              <path d="M6 20v-4h6v4" stroke-opacity=".8"/>
-            </svg>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <article className="service-card">
+          <div className="service-icon">
+            <Icon name="droplet" size={26} />
           </div>
-          <div class="service-card__body">
-            <div class="service-card__head">
-              <h3>Commercial Solar</h3>
-              <p class="service-card__label">02</p>
+          <div className="service-card__body">
+            <div className="service-card__head">
+              <h3>CO₂ Hot Water Heat Pumps</h3>
+              <p className="service-card__label">02</p>
             </div>
-            <p>Reduce operating costs with solar generation tailored to offices, retail, workshops, farms and other commercial sites.</p>
-              <a class="card-link" href="/services">Learn more
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+            <p>Eco-friendly natural R744 refrigerant heat pumps operating down to -20°C, cutting water heating power costs by up to 75%.</p>
+            <Link className="card-link" to="/services#co2-heat-pumps">
+              <span>Explore CO₂ Pumps</span>
+              <Icon name="arrow" size={16} />
+            </Link>
           </div>
         </article>
-      </div>
- 
-      <div>
-        <article class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2f7d5c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 8l7-4 9 4-9 4-9-4z"/>
-              <path d="M4 8v8l7 4M20 8v8l-9 4" stroke-opacity=".8"/>
-              <path d="M11 12v8" stroke-opacity=".8"/>
-            </svg>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <article className="service-card">
+          <div className="service-icon">
+            <Icon name="wind" size={26} />
           </div>
-          <div class="service-card__body">
-            <div class="service-card__head">
-              <h3>Solar Panel Installation</h3>
-              <p class="service-card__label">03</p>
+          <div className="service-card__body">
+            <div className="service-card__head">
+              <h3>Climate Control Heat Pumps</h3>
+              <p className="service-card__label">03</p>
             </div>
-            <p>Professional installation with careful system placement, commissioning and handover for dependable generation.</p>
-              <a class="card-link" href="/services">Learn more
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+            <p>Inverter heating and ducted cooling systems with smart Wi-Fi zoning, whisper acoustics, and daytime solar pre-conditioning.</p>
+            <Link className="card-link" to="/services#climate-heat-pumps">
+              <span>Explore Climate Control</span>
+              <Icon name="arrow" size={16} />
+            </Link>
           </div>
         </article>
-      </div>
- 
-      <div>
-        <article class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2f7d5c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="7" y="3.5" width="10" height="17" rx="2"/>
-              <path d="M10 3.5V2h4v1.5" stroke-opacity=".8"/>
-              <path d="M13.5 9l-3.5 4.6h3L11.5 18l3.7-5H12l1.5-4z" fill="#2f7d5c" fill-opacity=".15"/>
-            </svg>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <article className="service-card">
+          <div className="service-icon">
+            <Icon name="battery" size={26} />
           </div>
-          <div class="service-card__body">
-            <div class="service-card__head">
-              <h3>Solar Battery Storage</h3>
-              <p class="service-card__label">04</p>
+          <div className="service-card__body">
+            <div className="service-card__head">
+              <h3>Battery &amp; Off-Grid Storage</h3>
+              <p className="service-card__label">04</p>
             </div>
-            <p>Store surplus solar for later use and increase your energy independence with a battery system sized to your needs.</p>
-              <a class="card-link" href="/services">Learn more
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+            <p>Modular LiFePO4 battery storage and autonomous off-grid systems delivering 0ms blackout protection and tariff arbitrage.</p>
+            <Link className="card-link" to="/services#battery-storage">
+              <span>Explore Storage</span>
+              <Icon name="arrow" size={16} />
+            </Link>
           </div>
         </article>
-      </div>
- 
-      <div>
-        <article class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2f7d5c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3.5 20V6l8-3 8 3v14" stroke-opacity=".8"/>
-              <path d="M3.5 20h16"/>
-              <path d="M8 20v-5.5h8V20" stroke-opacity=".8"/>
-              <path d="M9.5 9h5M9.5 12h5" stroke-opacity=".55"/>
-            </svg>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <article className="service-card">
+          <div className="service-icon">
+            <Icon name="zap" size={26} />
           </div>
-          <div class="service-card__body">
-            <div class="service-card__head">
-              <h3>Solar System Design</h3>
-              <p class="service-card__label">05</p>
+          <div className="service-card__body">
+            <div className="service-card__head">
+              <h3>EV Charging Stations</h3>
+              <p className="service-card__label">05</p>
             </div>
-            <p>Data-led system sizing, roof assessment and energy planning to help you get the right balance of generation and storage.</p>
-              <a class="card-link" href="/services">Learn more
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+            <p>Level 2 AC and bi-directional DC chargers featuring solar surplus tracking, dynamic load balancing, and fleet billing.</p>
+            <Link className="card-link" to="/services#ev-charging">
+              <span>Explore EV Charging</span>
+              <Icon name="arrow" size={16} />
+            </Link>
           </div>
         </article>
-      </div>
- 
-      <div>
-        <article class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2f7d5c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3l7 3v5.5c0 4.6-3 7.8-7 9.5-4-1.7-7-4.9-7-9.5V6l7-3z" stroke-opacity=".85"/>
-              <path d="M9 12l2 2 4-4.5"/>
-            </svg>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <article className="service-card">
+          <div className="service-icon">
+            <Icon name="wrench" size={26} />
           </div>
-          <div class="service-card__body">
-            <div class="service-card__head">
-              <h3>Solar Maintenance</h3>
-              <p class="service-card__label">06</p>
+          <div className="service-card__body">
+            <div className="service-card__head">
+              <h3>General Electrical Solutions</h3>
+              <p className="service-card__label">06</p>
             </div>
-            <p>Ongoing checks, troubleshooting and maintenance support to help keep your solar investment performing year after year.</p>
-              <a class="card-link" href="/services">Learn more
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+            <p>Switchboard modernizations, 3-phase upgrades, commercial fit-outs, and official COC &amp; ROI compliance certification.</p>
+            <Link className="card-link" to="/services#electrical-solutions">
+              <span>Explore Electrical</span>
+              <Icon name="arrow" size={16} />
+            </Link>
           </div>
         </article>
-      </div>
- 
+      </ScrollReveal>
     </div>
   </div>
 </section>
+
+    {/* Our Packages Section */}
+    <PackagesSection />
 
     <section className="section why-section"><div className="container split-grid reverse"><ScrollReveal><div><SectionHeading eyebrow="Why Choose Us" title="Solar decisions made clear" text="A good solar system is more than panels on a roof. We look at your energy use, site, future plans and practical installation requirements before recommending a solution."/><div className="mini-features"><Mini icon="design" title="Right-sized design" text="Balanced generation and storage based on your property and usage."/><Mini icon="check" title="Quality installation" text="Careful installation, testing and commissioning from start to finish."/><Mini icon="battery" title="Built for tomorrow" text="Flexible solutions that can grow with changing energy needs."/><Mini icon="wrench" title="Ongoing support" text="Maintenance and troubleshooting when you need a hand."/></div></div></ScrollReveal><ScrollReveal><div className="feature-image"><img src="/images/img/feature.jpg" alt="Solar panels on a modern property"/><div className="floating-card"><span>Make more of your sunshine</span><strong>Generate • Store • Save</strong></div></div></ScrollReveal></div></section>
 

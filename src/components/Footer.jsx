@@ -28,8 +28,9 @@ export default function Footer() {
         <Link to="/product/solar-battery">Modular Solar Battery</Link>
         <Link to="/services/solar-installation">Solar Installation</Link>
         <Link to="/services/electrical">Electrical Services</Link>
-        <Link to="/packages#small-package">Small Package</Link>
-        <Link to="/packages#enterprise-package">Enterprise Package</Link>
+        <Link to="/packages/residential/starter">Residential Starter Package</Link>
+        <Link to="/packages/residential/comprehensive">Residential Comprehensive</Link>
+        <Link to="/packages/enterprise/comprehensive">Enterprise Flagship Solar</Link>
       </div>
       <div>
         <h3>Start a Conversation</h3>

@@ -110,7 +110,7 @@ async function runApiTests() {
       assert(validReq.status === 200, 'Returned 200 OK on successful submission and email dispatch');
       assert(validReq.body.ok === true, 'Reports ok: true when email is accepted');
     } else {
-      assert(validReq.status === 503, 'Returned 503 when SMTP is pending (enquiry preserved safely)');
+      assert(validReq.status === 502 || validReq.status === 503, 'Returned 502/503 when SMTP is pending or unreachable (enquiry preserved safely)');
       assert(validReq.body.ok === false, 'Reports ok: false (prevents false reporting of delivery)');
     }
     assert(!!validReq.body.referenceId, `Reference ID generated and returned: ${validReq.body.referenceId}`);

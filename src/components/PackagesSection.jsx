@@ -1,30 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from './Icon';
 import SectionHeading from './SectionHeading';
 import ScrollReveal from './ScrollReveal';
+import { packagesData } from '../data/packagesData';
 
 export default function PackagesSection({
   showHeading = true,
   title = "Our Packages",
-  subtitle = "Choose the right solar power package for your business. Compare our Small and Enterprise options side by side."
+  subtitle = "Choose the right solar power package for your home or business. Explore our Residential Solar and Enterprise solutions."
 }) {
-  const smallFeatures = [
-    "Affordable pricing",
-    "Essential features",
-    "Easy setup",
-    "Basic support",
-    "Perfect for startups and small businesses"
-  ];
+  const [filter, setFilter] = useState('all'); // 'all' | 'residential' | 'enterprise'
 
-  const enterpriseFeatures = [
-    "Advanced features",
-    "Premium support",
-    "Custom solutions",
-    "Advanced analytics",
-    "Scalable business solutions",
-    "Dedicated assistance"
-  ];
+  const allPackages = Object.values(packagesData);
+  const displayedPackages = filter === 'all' 
+    ? allPackages 
+    : allPackages.filter(p => p.category === filter);
 
   return (
     <section className="section packages-section" id="packages">
@@ -38,155 +29,115 @@ export default function PackagesSection({
           />
         )}
 
-        <div className="packages-intro-badge-container">
-          <span className="packages-intro-pill">
-            <Icon name="sun" size={16} /> Transparent, Scalable Commercial Solar Packages
-          </span>
+        {/* Category Tabs: All, Residential Solar, Enterprise */}
+        <div className="packages-category-tabs">
+          <button
+            className={`pkg-tab-btn ${filter === 'all' ? 'active' : ''}`}
+            onClick={() => setFilter('all')}
+          >
+            <span>All Packages (5)</span>
+          </button>
+          <button
+            className={`pkg-tab-btn ${filter === 'residential' ? 'active' : ''}`}
+            onClick={() => setFilter('residential')}
+          >
+            <Icon name="home" size={15} />
+            <span>Residential Solar (2)</span>
+          </button>
+          <button
+            className={`pkg-tab-btn ${filter === 'enterprise' ? 'active' : ''}`}
+            onClick={() => setFilter('enterprise')}
+          >
+            <Icon name="building" size={15} />
+            <span>Enterprise (3)</span>
+          </button>
         </div>
 
-        <div className="packages-grid">
-          {/* Package 1: Small */}
-          <ScrollReveal>
-            <div className="package-card package-card-small" id="small-package">
-              <div className="package-card-header">
-                <div className="package-icon-wrap package-icon-small" aria-hidden="true">
-                  <Icon name="rocket" size={26} />
+        <div className="packages-grid packages-grid-multi">
+          {displayedPackages.map((pkg) => {
+            const isRecommended = pkg.tier === 'Comprehensive' || pkg.id === 'residential-comprehensive';
+            const iconName = pkg.category === 'residential' 
+              ? (pkg.tier === 'Comprehensive' ? 'star' : 'sun')
+              : (pkg.tier === 'Comprehensive' ? 'crown' : (pkg.tier === 'Full' ? 'layers' : 'zap'));
+
+            return (
+              <ScrollReveal key={pkg.id}>
+                <div 
+                  className={`package-card ${pkg.category === 'enterprise' ? 'package-card-enterprise' : 'package-card-residential'} ${isRecommended ? 'package-recommended' : ''}`}
+                  id={pkg.id}
+                >
+                  {isRecommended && (
+                    <div className="recommended-badge" aria-label="Recommended Solution">
+                      <Icon name="star" size={14} />
+                      <span>Recommended Solution</span>
+                    </div>
+                  )}
+
+                  <div className="package-card-header">
+                    <div className={`package-icon-wrap ${pkg.category === 'enterprise' ? 'package-icon-enterprise' : 'package-icon-small'}`} aria-hidden="true">
+                      <Icon name={iconName} size={24} />
+                    </div>
+                    <div className="package-title-group">
+                      <span className="package-tier-label">{pkg.categoryLabel} • {pkg.tier}</span>
+                      <h3 className="package-title">{pkg.title}</h3>
+                    </div>
+                  </div>
+
+                  <p className="package-tagline">{pkg.tagline}</p>
+
+                  <div className={`package-pricing-box ${pkg.category === 'enterprise' ? 'enterprise-pricing-box' : ''}`}>
+                    <div className="package-price-row">
+                      <span className="package-price-amount">{pkg.capacity}</span>
+                    </div>
+                    <span className="package-price-sub">{pkg.inverter} • {pkg.battery}</span>
+                  </div>
+
+                  <div className="package-divider" />
+
+                  <div className="package-features-block">
+                    <h4 className="package-features-title">Package Features:</h4>
+                    <ul className="package-features-list">
+                      {pkg.features.slice(0, 5).map((feat, idx) => (
+                        <li key={idx} className="package-feature-item">
+                          <span className={`package-check-icon ${pkg.category === 'enterprise' ? 'enterprise-check-icon' : ''}`}>
+                            <Icon name="check" size={15} />
+                          </span>
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="package-cta-wrap">
+                    <div className="package-cta-buttons">
+                      <Link
+                        to={`/quote?package=${pkg.quoteSlug}`}
+                        className={`button button-package ${pkg.category === 'enterprise' ? 'button-package-enterprise' : 'button-package-small'}`}
+                        aria-label={`Get Started with ${pkg.fullTitle}`}
+                      >
+                        <span>Get Started</span>
+                        <Icon name="arrow" size={17} />
+                      </Link>
+                      <Link
+                        to={pkg.path}
+                        className={`button button-package-more-info ${pkg.category === 'enterprise' ? 'button-package-more-info-enterprise' : ''}`}
+                        aria-label={`More Information about ${pkg.fullTitle}`}
+                      >
+                        <span>More Information</span>
+                        <Icon name="info" size={16} />
+                      </Link>
+                    </div>
+                    <span className="package-guarantee-note">
+                      NZ Master Electricians &bull; {pkg.warranty}
+                    </span>
+                  </div>
                 </div>
-                <div className="package-title-group">
-                  <span className="package-tier-label"></span>
-                  <h3 className="package-title">Small Package</h3>
-                </div>
-              </div>
-
-              <p className="package-tagline">
-                Perfect for startups and small businesses
-              </p>
-
-              <div className="package-pricing-box">
-                <div className="package-price-row">
-                  <span className="package-price-currency">$</span>
-                  <span className="package-price-amount">Affordable</span>
-                </div>
-                <span className="package-price-sub">Budget-friendly solution with rapid ROI</span>
-              </div>
-
-              <div className="package-divider" />
-
-              <div className="package-features-block">
-                <h4 className="package-features-title">Package Features:</h4>
-                <ul className="package-features-list">
-                  {smallFeatures.map((feat, idx) => (
-                    <li key={idx} className="package-feature-item">
-                      <span className="package-check-icon">
-                        <Icon name="check" size={16} />
-                      </span>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="package-cta-wrap">
-                <div className="package-cta-buttons">
-                  <Link
-                    to="/quote?package=small"
-                    className="button button-package button-package-small"
-                    aria-label="Get Started with Small Package"
-                  >
-                    <span>Get Started</span>
-                    <Icon name="arrow" size={17} />
-                  </Link>
-                  <Link
-                    to="/packages/details?package=small#package-specs"
-                    className="button button-package-more-info"
-                    aria-label="More Information about Small Package"
-                  >
-                    <span>More Information</span>
-                    <Icon name="info" size={16} />
-                  </Link>
-                </div>
-                <span className="package-guarantee-note">
-                  Fast setup &bull; Essential tools &amp; support
-                </span>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Package 2: Enterprise (Recommended) */}
-          <ScrollReveal>
-            <div className="package-card package-card-enterprise package-recommended" id="enterprise-package">
-              {/* Recommended Badge */}
-              <div className="recommended-badge" aria-label="Recommended Package">
-                <Icon name="star" size={15} />
-                <span>Recommended Package</span>
-              </div>
-
-              <div className="package-card-header">
-                <div className="package-icon-wrap package-icon-enterprise" aria-hidden="true">
-                  <Icon name="crown" size={26} />
-                </div>
-                <div className="package-title-group">
-                  <span className="package-tier-label enterprise-tier-label">Large &amp; Growing</span>
-                  <h3 className="package-title">Enterprise Package</h3>
-                </div>
-              </div>
-
-              <p className="package-tagline">
-                Best for large businesses &amp; growing companies
-              </p>
-
-              <div className="package-pricing-box enterprise-pricing-box">
-                <div className="package-price-row">
-                  <span className="package-price-currency">⚡</span>
-                  <span className="package-price-amount">Custom Scale</span>
-                </div>
-                <span className="package-price-sub">Custom engineered for high performance &amp; scalability</span>
-              </div>
-
-              <div className="package-divider enterprise-divider" />
-
-              <div className="package-features-block">
-                <h4 className="package-features-title">Enterprise Features:</h4>
-                <ul className="package-features-list">
-                  {enterpriseFeatures.map((feat, idx) => (
-                    <li key={idx} className="package-feature-item enterprise-feature-item">
-                      <span className="package-check-icon enterprise-check-icon">
-                        <Icon name="check" size={16} />
-                      </span>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="package-cta-wrap">
-                <div className="package-cta-buttons">
-                  <Link
-                    to="/quote?package=enterprise"
-                    className="button button-package button-package-enterprise"
-                    aria-label="Get Started with Enterprise Package"
-                  >
-                    <span>Get Started</span>
-                    <Icon name="arrow" size={17} />
-                  </Link>
-                  <Link
-                    to="/packages/details?package=enterprise#package-specs"
-                    className="button button-package-more-info button-package-more-info-enterprise"
-                    aria-label="More Information about Enterprise Package"
-                  >
-                    <span>More Information</span>
-                    <Icon name="info" size={16} />
-                  </Link>
-                </div>
-                <span className="package-guarantee-note">
-                  Dedicated assistance &bull; Premium SLA &amp; support
-                </span>
-              </div>
-            </div>
-          </ScrollReveal>
+              </ScrollReveal>
+            );
+          })}
         </div>
 
-        {/* Value Trust Band */}
+        {/* Trust Badges Band */}
         <div className="packages-trust-band">
           <div className="trust-item">
             <Icon name="shield" size={20} />
@@ -196,17 +147,17 @@ export default function PackagesSection({
             </div>
           </div>
           <div className="trust-item">
-            <Icon name="wrench" size={20} />
+            <Icon name="award" size={20} />
             <div>
-              <strong>Expert NZ Installation</strong>
-              <span>Master electricians with complete compliance guarantee</span>
+              <strong>Master Electricians</strong>
+              <span>AS/NZS 3000, 4777, 5033, 5139 compliance</span>
             </div>
           </div>
           <div className="trust-item">
-            <Icon name="battery" size={20} />
+            <Icon name="sun" size={20} />
             <div>
-              <strong>Scalable Architecture</strong>
-              <span>Expand generation and add battery storage anytime</span>
+              <strong>25-Year Warranties</strong>
+              <span>Guaranteed long-term solar yield</span>
             </div>
           </div>
         </div>

@@ -6,12 +6,14 @@ import logo from '../../img/volttrackLogo.png';
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeNestedSubmenu, setActiveNestedSubmenu] = useState(null);
   const location = useLocation();
   const navRef = useRef(null);
 
   const close = () => {
     setOpen(false);
     setActiveDropdown(null);
+    setActiveNestedSubmenu(null);
   };
 
   const toggleDropdown = (name, e) => {
@@ -20,6 +22,14 @@ export default function Navbar() {
       e.stopPropagation();
     }
     setActiveDropdown(prev => (prev === name ? null : name));
+  };
+
+  const toggleNestedSubmenu = (category, e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setActiveNestedSubmenu(prev => (prev === category ? null : category));
   };
 
   // Close dropdown on outside click
@@ -317,13 +327,168 @@ export default function Navbar() {
               </div>
             </div>
 
-            <NavLink
-              to="/packages"
-              className={({ isActive }) => (isActive ? 'active' : '')}
-              onClick={close}
+            {/* Our Packages with 2 main submenu categories: Residential Solar, Enterprise */}
+            <div
+              className={`nav-dropdown nav-dropdown-packages ${activeDropdown === 'packages' ? 'dropdown-active' : ''}`}
+              onMouseEnter={() => setActiveDropdown('packages')}
+              onMouseLeave={() => setActiveDropdown(null)}
             >
-              Our Packages
-            </NavLink>
+              <div className="nav-dropdown-trigger-row">
+                <NavLink
+                  to="/packages"
+                  className={({ isActive }) => `nav-dropdown-link ${isActive ? 'active' : ''}`}
+                  onClick={close}
+                >
+                  Our Packages
+                </NavLink>
+                <button
+                  type="button"
+                  className="dropdown-chevron-btn"
+                  onClick={(e) => toggleDropdown('packages', e)}
+                  aria-label="Toggle Our Packages submenu"
+                  aria-expanded={activeDropdown === 'packages'}
+                >
+                  <Icon name="chevron-down" size={13} />
+                </button>
+              </div>
+
+              <div
+                className={`nav-submenu nav-submenu-packages ${activeDropdown === 'packages' ? 'nav-submenu-open' : ''}`}
+                role="menu"
+              >
+                <div className="packages-submenu-grid">
+                  {/* Category 1: Residential Solar */}
+                  <div className="packages-submenu-category">
+                    <div
+                      className="category-header-row"
+                      onClick={(e) => toggleNestedSubmenu('residential', e)}
+                      role="button"
+                      tabIndex={0}
+                      aria-expanded={activeNestedSubmenu !== 'enterprise'}
+                    >
+                      <div className="category-header-info">
+                        <span className="category-header-icon category-icon-residential">
+                          <Icon name="home" size={15} />
+                        </span>
+                        <div className="category-header-text">
+                          <span className="category-title">Residential Solar</span>
+                          <span className="category-subtitle">Kiwi Homes</span>
+                        </div>
+                      </div>
+                      <span className="category-badge">2 Packages</span>
+                    </div>
+
+                    <div className={`category-items-list ${activeNestedSubmenu === 'enterprise' ? 'category-hidden-mobile' : ''}`}>
+                      <Link
+                        to="/packages/residential/starter"
+                        className="submenu-item nested-submenu-item"
+                        onClick={close}
+                        role="menuitem"
+                      >
+                        <div className="submenu-icon-wrap submenu-icon-small">
+                          <Icon name="sun" size={16} />
+                        </div>
+                        <div className="submenu-item-text">
+                          <span className="submenu-item-title">Starter Package</span>
+                          <span className="submenu-item-desc">4.5kW – 5kW clean rooftop energy</span>
+                        </div>
+                      </Link>
+
+                      <Link
+                        to="/packages/residential/comprehensive"
+                        className="submenu-item nested-submenu-item"
+                        onClick={close}
+                        role="menuitem"
+                      >
+                        <div className="submenu-icon-wrap submenu-icon-small">
+                          <Icon name="star" size={16} />
+                        </div>
+                        <div className="submenu-item-text">
+                          <span className="submenu-item-title">Comprehensive Package</span>
+                          <span className="submenu-item-desc">8.67kW + 10kWh battery-ready</span>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Category 2: Enterprise */}
+                  <div className="packages-submenu-category">
+                    <div
+                      className="category-header-row"
+                      onClick={(e) => toggleNestedSubmenu('enterprise', e)}
+                      role="button"
+                      tabIndex={0}
+                      aria-expanded={activeNestedSubmenu !== 'residential'}
+                    >
+                      <div className="category-header-info">
+                        <span className="category-header-icon category-icon-enterprise">
+                          <Icon name="building" size={15} />
+                        </span>
+                        <div className="category-header-text">
+                          <span className="category-title">Enterprise</span>
+                          <span className="category-subtitle">Commercial &amp; Industrial</span>
+                        </div>
+                      </div>
+                      <span className="category-badge enterprise-badge">3 Packages</span>
+                    </div>
+
+                    <div className={`category-items-list ${activeNestedSubmenu === 'residential' ? 'category-hidden-mobile' : ''}`}>
+                      <Link
+                        to="/packages/enterprise/starter"
+                        className="submenu-item nested-submenu-item"
+                        onClick={close}
+                        role="menuitem"
+                      >
+                        <div className="submenu-icon-wrap submenu-icon-small">
+                          <Icon name="zap" size={16} />
+                        </div>
+                        <div className="submenu-item-text">
+                          <span className="submenu-item-title">Starter Package</span>
+                          <span className="submenu-item-desc">10kW – 15kW small business</span>
+                        </div>
+                      </Link>
+
+                      <Link
+                        to="/packages/enterprise/full"
+                        className="submenu-item nested-submenu-item"
+                        onClick={close}
+                        role="menuitem"
+                      >
+                        <div className="submenu-icon-wrap submenu-icon-small">
+                          <Icon name="layers" size={16} />
+                        </div>
+                        <div className="submenu-item-text">
+                          <span className="submenu-item-title">Full Package</span>
+                          <span className="submenu-item-desc">30kW – 50kW commercial power</span>
+                        </div>
+                      </Link>
+
+                      <Link
+                        to="/packages/enterprise/comprehensive"
+                        className="submenu-item nested-submenu-item"
+                        onClick={close}
+                        role="menuitem"
+                      >
+                        <div className="submenu-icon-wrap submenu-icon-small">
+                          <Icon name="crown" size={16} />
+                        </div>
+                        <div className="submenu-item-text">
+                          <span className="submenu-item-title">Comprehensive Package</span>
+                          <span className="submenu-item-desc">50kW+ BESS microgrid &amp; EV</span>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="submenu-footer">
+                  <Link to="/packages" className="submenu-footer-link" onClick={close}>
+                    <span>View All Packages &amp; Compare Options</span>
+                    <Icon name="arrow" size={13} />
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             <NavLink
               to="/testimonials"

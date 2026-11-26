@@ -37,8 +37,16 @@ async function runApiTests() {
     console.error(`[SERVER ERR] ${d.toString().trim()}`);
   });
 
-  // Wait for server to start
-  await new Promise(r => setTimeout(r, 1500));
+  // Wait for server to start with polling
+  for (let i = 0; i < 15; i++) {
+    await new Promise(r => setTimeout(r, 300));
+    try {
+      const ping = await request('/api/health');
+      if (ping.status === 200) break;
+    } catch {
+      // still starting
+    }
+  }
 
   let passed = 0;
   let failed = 0;

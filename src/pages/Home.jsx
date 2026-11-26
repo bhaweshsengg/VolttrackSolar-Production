@@ -7,7 +7,7 @@ import EnquiryForm from '../components/EnquiryForm';
 import PackagesSection from '../components/PackagesSection';
 
 const slides = [
-  { image: '/images/img/carousel-1.jpg', title: 'Smarter Solar Energy For New Zealand', text: 'Generate more of your own clean electricity with a solar system designed around your home, business and energy goals.' },
+  { image: '/images/img/carousel-1.jpg', title: 'Smarter Solar Energy For Greater Wellington', text: 'Generate more of your own clean electricity with a solar and battery system engineered for Cook Strait winds and designed around your property.' },
   { image: '/images/img/carousel-2.jpg', title: 'Power Your Day. Store Your Sunshine.', text: 'Pair quality solar panels with battery storage to make more of the energy you generate and reduce your reliance on the grid.' },
   { image: '/images/img/carousel-3.jpg', title: 'Solar Solutions Built For Aotearoa', text: 'From site assessment to installation and maintenance, get practical solar support from a team focused on long-term performance.' },
 ];
@@ -20,7 +20,7 @@ const services = [
   ['wrench','Solar Maintenance','Ongoing checks, troubleshooting and maintenance support to help keep your solar investment performing year after year.'],
 ];
 const projects = [
-  ['/images/img/img-600x400-1.jpg','Residential Solar','Waikato'],['/images/img/img-600x400-2.jpg','Commercial Solar','Auckland'],['/images/img/img-600x400-3.jpg','Solar + Battery','Canterbury'],['/images/img/img-600x400-4.jpg','Rural Solar','Bay of Plenty']
+  ['/images/img/img-600x400-1.jpg','Residential Solar','Lower Hutt, Wellington'],['/images/img/img-600x400-2.jpg','Commercial Solar','Wellington CBD'],['/images/img/img-600x400-3.jpg','Solar + Battery','Kapiti Coast'],['/images/img/img-600x400-4.jpg','Rural Solar & Storage','Wairarapa']
 ];
 const testimonials = [
   ['Sarah M.','Hamilton, Waikato','The team made the whole process straightforward. We now use more of our own solar power during the day and have a clear plan for adding storage.'],
@@ -178,6 +178,104 @@ export default function Home() {
 
     {/* Our Packages Section */}
     <PackagesSection />
+
+    {/* Greater Wellington Region Showcase Section */}
+    <section className="section wellington-region-section" id="wellington-solar">
+      <div className="container">
+        <SectionHeading
+          align="center"
+          eyebrow="Greater Wellington Solar Specialists"
+          title="Engineered for Cook Strait Winds, Salt Air &amp; Wellington Microclimates"
+          text="Solar in the Greater Wellington Region needs serious engineering. From steep hillside sections and severe wind zones to coastal sea spray and local lines network approvals, VoltTrack delivers systems specifically built to thrive in Wellington's demanding environment."
+        />
+
+        <div className="wellington-grid">
+          <ScrollReveal>
+            <div className="wellington-card">
+              <div className="wellington-card-header">
+                <div className="wellington-card-icon">
+                  <Icon name="wind" size={24} />
+                </div>
+                <h3>Cyclone-Rated Wind Resistance (AS/NZS 1170.2)</h3>
+              </div>
+              <p>
+                Wellington is world-renowned for Cook Strait gales and turbulent hillside winds. We exclusively install Australian-made Clenergy S6 cyclone-rated mounting rails with non-penetrating metal tile brackets and extra rafter fastenings, engineered for High, Very High, and Extra High Wellington wind zones.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="wellington-card">
+              <div className="wellington-card-header">
+                <div className="wellington-card-icon blue">
+                  <Icon name="shield" size={24} />
+                </div>
+                <h3>Marine-Grade Coastal Salt Protection</h3>
+              </div>
+              <p>
+                From coastal Lyall Bay, Seatoun, and Island Bay to Petone, Eastbourne, and Plimmerton, airborne salt spray corrodes inferior fittings. Every VoltTrack array uses 316-grade stainless steel fasteners, marine-grade anodized aluminium racking, and IEC 61701 salt-mist certified N-Type panels.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="wellington-card">
+              <div className="wellington-card-header">
+                <div className="wellington-card-icon yellow">
+                  <Icon name="sun" size={24} />
+                </div>
+                <h3>Microclimate &amp; Hillside Optimization</h3>
+              </div>
+              <p>
+                Greater Wellington enjoys diverse microclimates—the sunny Hutt Valley and Wairarapa experience warm high-yield days, Kapiti Coast enjoys consistent coastal light, while Wellington City features hillside topography. We customize split-string arrays (East/West) to maximize generation across all roof pitches.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <div className="wellington-card">
+              <div className="wellington-card-header">
+                <div className="wellington-card-icon purple">
+                  <Icon name="check" size={24} />
+                </div>
+                <h3>Wellington Electricity &amp; Lines Compliance</h3>
+              </div>
+              <p>
+                We handle 100% of the network connection paperwork and distributed generation applications with Wellington Electricity, Electra (Kapiti/Horowhenua), and Powerco (Wairarapa). We coordinate bi-directional export metering, ripple control, and official COC &amp; ROI electrical certification.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+
+        {/* Suburbs Covered Banner */}
+        <ScrollReveal>
+          <div className="wellington-suburbs-banner">
+            <h4>Proudly Powering Homes &amp; Businesses Across Greater Wellington</h4>
+            <div className="wellington-suburbs-pills">
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Wellington CBD &amp; Central</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Lower Hutt &amp; Petone</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Upper Hutt &amp; Silverstream</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Porirua &amp; Whitby</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Kapiti Coast &amp; Paraparaumu</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Wairarapa &amp; Masterton</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Karori &amp; Western Suburbs</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Johnsonville &amp; Tawa</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Miramar, Seatoun &amp; Lyall Bay</span>
+              <span className="wellington-suburb-pill"><Icon name="pin" size={13} /> Eastbourne &amp; Wainuiomata</span>
+            </div>
+
+            <div className="wellington-cta-row">
+              <Link to="/quote" className="button button-primary">
+                Get A Free Wellington Solar Assessment <Icon name="arrow" size={17} />
+              </Link>
+              <Link to="/packages" className="button button-outline">
+                Explore Solar Packages <Icon name="arrow" size={17} />
+              </Link>
+            </div>
+          </div>
+        </ScrollReveal>
+      </div>
+    </section>
 
     <section className="section why-section"><div className="container split-grid reverse"><ScrollReveal><div><SectionHeading eyebrow="Why Choose Us" title="Solar decisions made clear" text="A good solar system is more than panels on a roof. We look at your energy use, site, future plans and practical installation requirements before recommending a solution."/><div className="mini-features"><Mini icon="design" title="Right-sized design" text="Balanced generation and storage based on your property and usage."/><Mini icon="check" title="Quality installation" text="Careful installation, testing and commissioning from start to finish."/><Mini icon="battery" title="Built for tomorrow" text="Flexible solutions that can grow with changing energy needs."/><Mini icon="wrench" title="Ongoing support" text="Maintenance and troubleshooting when you need a hand."/></div></div></ScrollReveal><ScrollReveal><div className="feature-image"><img src="/images/img/feature.jpg" alt="Solar panels on a modern property"/><div className="floating-card"><span>Make more of your sunshine</span><strong>Generate • Store • Save</strong></div></div></ScrollReveal></div></section>
 

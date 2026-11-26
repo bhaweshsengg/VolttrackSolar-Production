@@ -6,14 +6,30 @@ import logo from '../../img/volttrackLogo.png';
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [activeNestedSubmenu, setActiveNestedSubmenu] = useState(null);
+  const [expandedCategories, setExpandedCategories] = useState({
+    residential: true,
+    enterprise: true,
+  });
   const location = useLocation();
   const navRef = useRef(null);
 
   const close = () => {
     setOpen(false);
     setActiveDropdown(null);
-    setActiveNestedSubmenu(null);
+  };
+
+  const isDesktop = () => typeof window !== 'undefined' && window.innerWidth > 1240;
+
+  const handleMouseEnter = (name) => {
+    if (isDesktop()) {
+      setActiveDropdown(name);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isDesktop()) {
+      setActiveDropdown(null);
+    }
   };
 
   const toggleDropdown = (name, e) => {
@@ -24,24 +40,44 @@ export default function Navbar() {
     setActiveDropdown(prev => (prev === name ? null : name));
   };
 
-  const toggleNestedSubmenu = (category, e) => {
+  const toggleCategory = (category, e) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
-    setActiveNestedSubmenu(prev => (prev === category ? null : category));
+    setExpandedCategories(prev => ({
+      ...prev,
+      [category]: !prev[category],
+    }));
   };
 
-  // Close dropdown on outside click
+  // Close dropdown or mobile menu on outside click or touch
   useEffect(() => {
     function handleClickOutside(event) {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setActiveDropdown(null);
+        setOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside, { passive: true });
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add('nav-drawer-open');
+    } else {
+      document.body.classList.remove('nav-drawer-open');
+    }
+    return () => {
+      document.body.classList.remove('nav-drawer-open');
+    };
+  }, [open]);
 
   // Close on route change
   useEffect(() => {
@@ -53,17 +89,17 @@ export default function Navbar() {
       <div className="topbar">
         <div className="container topbar-inner">
           <span>
-            <Icon name="pin" size={15} /> Serving homes &amp; businesses across New Zealand
+            <Icon name="pin" size={15} /> Serving Greater Wellington &amp; Wellington Region
           </span>
           <span className="contact-actions">
             <span className="specialist-text">
               <Icon name="phone" size={15} />
               <a href="tel:+64224266006" className="topbar-phone">
-                NZ solar specialists
+                Wellington Solar Specialists
               </a>
             </span>
             <a
-              href="https://wa.me/64224266006?text=Hi%20VoltTrack%2C%20I%27d%20like%20a%20free%20solar%20quote."
+              href="https://wa.me/64224266006?text=Hi%20VoltTrack%2C%20I%27d%20like%20a%20free%20solar%20quote%20for%20my%20Wellington%20property."
               target="_blank"
               rel="noreferrer"
             >
@@ -89,9 +125,10 @@ export default function Navbar() {
           </Link>
 
           <button
+            type="button"
             className="menu-button"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle navigation"
+            onClick={() => setOpen(prev => !prev)}
+            aria-label={open ? 'Close mobile menu' : 'Open mobile menu'}
             aria-expanded={open}
           >
             <Icon name={open ? 'close' : 'menu'} size={24} />
@@ -121,8 +158,8 @@ export default function Navbar() {
             {/* Services with 2 submenus: Solar Installation, Electrical */}
             <div
               className={`nav-dropdown ${activeDropdown === 'services' ? 'dropdown-active' : ''}`}
-              onMouseEnter={() => setActiveDropdown('services')}
-              onMouseLeave={() => setActiveDropdown(null)}
+              onMouseEnter={() => handleMouseEnter('services')}
+              onMouseLeave={handleMouseLeave}
             >
               <div className="nav-dropdown-trigger-row">
                 <NavLink
@@ -136,10 +173,10 @@ export default function Navbar() {
                   type="button"
                   className="dropdown-chevron-btn"
                   onClick={(e) => toggleDropdown('services', e)}
-                  aria-label="Toggle Services submenu"
+                  aria-label={activeDropdown === 'services' ? 'Collapse Services menu' : 'Expand Services menu'}
                   aria-expanded={activeDropdown === 'services'}
                 >
-                  <Icon name="chevron-down" size={13} />
+                  <Icon name="chevron-down" size={14} />
                 </button>
               </div>
 
@@ -190,8 +227,8 @@ export default function Navbar() {
             {/* Product with 3 submenus: Efficient Solar Panels, Hybrid Inverters, Modular Solar Battery */}
             <div
               className={`nav-dropdown ${activeDropdown === 'product' ? 'dropdown-active' : ''}`}
-              onMouseEnter={() => setActiveDropdown('product')}
-              onMouseLeave={() => setActiveDropdown(null)}
+              onMouseEnter={() => handleMouseEnter('product')}
+              onMouseLeave={handleMouseLeave}
             >
               <div className="nav-dropdown-trigger-row">
                 <NavLink
@@ -205,17 +242,16 @@ export default function Navbar() {
                   type="button"
                   className="dropdown-chevron-btn"
                   onClick={(e) => toggleDropdown('product', e)}
-                  aria-label="Toggle Product submenu"
+                  aria-label={activeDropdown === 'product' ? 'Collapse Product menu' : 'Expand Product menu'}
                   aria-expanded={activeDropdown === 'product'}
                 >
-                  <Icon name="chevron-down" size={13} />
+                  <Icon name="chevron-down" size={14} />
                 </button>
               </div>
 
               <div className={`nav-submenu ${activeDropdown === 'product' ? 'nav-submenu-open' : ''}`} role="menu">
                 <div className="submenu-header">
                   <span className="submenu-header-title">Product Line</span>
-                  {/*    <span className="submenu-header-badge"></span> */}
                 </div>
 
                 <Link
@@ -275,8 +311,8 @@ export default function Navbar() {
             {/* Project with Gallery submenu */}
             <div
               className={`nav-dropdown ${activeDropdown === 'projects' ? 'dropdown-active' : ''}`}
-              onMouseEnter={() => setActiveDropdown('projects')}
-              onMouseLeave={() => setActiveDropdown(null)}
+              onMouseEnter={() => handleMouseEnter('projects')}
+              onMouseLeave={handleMouseLeave}
             >
               <div className="nav-dropdown-trigger-row">
                 <NavLink
@@ -290,10 +326,10 @@ export default function Navbar() {
                   type="button"
                   className="dropdown-chevron-btn"
                   onClick={(e) => toggleDropdown('projects', e)}
-                  aria-label="Toggle Projects submenu"
+                  aria-label={activeDropdown === 'projects' ? 'Collapse Projects menu' : 'Expand Projects menu'}
                   aria-expanded={activeDropdown === 'projects'}
                 >
-                  <Icon name="chevron-down" size={13} />
+                  <Icon name="chevron-down" size={14} />
                 </button>
               </div>
 
@@ -330,8 +366,8 @@ export default function Navbar() {
             {/* Our Packages with 2 main submenu categories: Residential Solar, Enterprise */}
             <div
               className={`nav-dropdown nav-dropdown-packages ${activeDropdown === 'packages' ? 'dropdown-active' : ''}`}
-              onMouseEnter={() => setActiveDropdown('packages')}
-              onMouseLeave={() => setActiveDropdown(null)}
+              onMouseEnter={() => handleMouseEnter('packages')}
+              onMouseLeave={handleMouseLeave}
             >
               <div className="nav-dropdown-trigger-row">
                 <NavLink
@@ -345,10 +381,10 @@ export default function Navbar() {
                   type="button"
                   className="dropdown-chevron-btn"
                   onClick={(e) => toggleDropdown('packages', e)}
-                  aria-label="Toggle Our Packages submenu"
+                  aria-label={activeDropdown === 'packages' ? 'Collapse Our Packages menu' : 'Expand Our Packages menu'}
                   aria-expanded={activeDropdown === 'packages'}
                 >
-                  <Icon name="chevron-down" size={13} />
+                  <Icon name="chevron-down" size={14} />
                 </button>
               </div>
 
@@ -361,10 +397,10 @@ export default function Navbar() {
                   <div className="packages-submenu-category">
                     <div
                       className="category-header-row"
-                      onClick={(e) => toggleNestedSubmenu('residential', e)}
+                      onClick={(e) => toggleCategory('residential', e)}
                       role="button"
                       tabIndex={0}
-                      aria-expanded={activeNestedSubmenu !== 'enterprise'}
+                      aria-expanded={expandedCategories.residential}
                     >
                       <div className="category-header-info">
                         <span className="category-header-icon category-icon-residential">
@@ -375,10 +411,15 @@ export default function Navbar() {
                           <span className="category-subtitle">Kiwi Homes</span>
                         </div>
                       </div>
-                      <span className="category-badge">2 Packages</span>
+                      <div className="category-header-right">
+                        <span className="category-badge">2 Packages</span>
+                        <span className={`category-accordion-arrow ${expandedCategories.residential ? 'arrow-up' : ''}`}>
+                          <Icon name="chevron-down" size={13} />
+                        </span>
+                      </div>
                     </div>
 
-                    <div className={`category-items-list ${activeNestedSubmenu === 'enterprise' ? 'category-hidden-mobile' : ''}`}>
+                    <div className={`category-items-list ${expandedCategories.residential ? '' : 'category-collapsed'}`}>
                       <Link
                         to="/packages/residential/starter"
                         className="submenu-item nested-submenu-item"
@@ -415,10 +456,10 @@ export default function Navbar() {
                   <div className="packages-submenu-category">
                     <div
                       className="category-header-row"
-                      onClick={(e) => toggleNestedSubmenu('enterprise', e)}
+                      onClick={(e) => toggleCategory('enterprise', e)}
                       role="button"
                       tabIndex={0}
-                      aria-expanded={activeNestedSubmenu !== 'residential'}
+                      aria-expanded={expandedCategories.enterprise}
                     >
                       <div className="category-header-info">
                         <span className="category-header-icon category-icon-enterprise">
@@ -429,10 +470,15 @@ export default function Navbar() {
                           <span className="category-subtitle">Commercial &amp; Industrial</span>
                         </div>
                       </div>
-                      <span className="category-badge enterprise-badge">3 Packages</span>
+                      <div className="category-header-right">
+                        <span className="category-badge enterprise-badge">3 Packages</span>
+                        <span className={`category-accordion-arrow ${expandedCategories.enterprise ? 'arrow-up' : ''}`}>
+                          <Icon name="chevron-down" size={13} />
+                        </span>
+                      </div>
                     </div>
 
-                    <div className={`category-items-list ${activeNestedSubmenu === 'residential' ? 'category-hidden-mobile' : ''}`}>
+                    <div className={`category-items-list ${expandedCategories.enterprise ? '' : 'category-collapsed'}`}>
                       <Link
                         to="/packages/enterprise/starter"
                         className="submenu-item nested-submenu-item"
@@ -512,6 +558,15 @@ export default function Navbar() {
           </nav>
         </div>
       </header>
+
+      {/* Mobile Drawer Backdrop Overlay */}
+      {open && (
+        <div
+          className="nav-mobile-backdrop"
+          onClick={close}
+          aria-label="Close mobile navigation"
+        />
+      )}
     </>
   );
 }

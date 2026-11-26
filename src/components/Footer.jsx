@@ -6,8 +6,8 @@ export default function Footer() {
   return <footer className="footer">
     <div className="container footer-grid">
       <div>
-        <Link className="brand footer-brand" to="/"><span className="brand-mark"><Icon name="sun" size={25}/></span><span>VoltTrack<span>Solar</span> <small>Solutions</small></span></Link>
-        <p>Smarter solar energy for New Zealand homes and businesses, from system design through installation and ongoing care.</p>
+        <Link className="brand footer-brand" to="/"><span className="brand-mark"><Icon name="sun" size={25} /></span><span>VoltTrack<span>Solar</span> <small>Solutions</small></span></Link>
+        <p>Smarter solar and battery storage engineered for the Greater Wellington Region and across New Zealand, from custom system design through cyclone-rated installation and ongoing care.</p>
       </div>
       <div>
         <h3>Quick Links</h3>
@@ -34,15 +34,19 @@ export default function Footer() {
       </div>
       <div>
         <h3>Start a Conversation</h3>
-        <p className="contact-line"><Icon name="mail" size={18}/> <span>Use our enquiry form for a direct response</span></p>
-        <p className="contact-line"><Icon name="phone" size={18}/> <span>NZ-wide enquiries</span></p>
-        <Link className="footer-cta" to="/quote">Request a free quote <Icon name="arrow" size={16}/></Link>
+        <p className="contact-line"><Icon name="pin" size={18} /> <span>Greater Wellington Region</span></p>
+        <p className="contact-line"><Icon name="phone" size={18} /> <a href="tel:+64224266006" style={{ color: '#BBF7D0' }}>+64 22 426 6006</a></p>
+        <p className="contact-line"><Icon name="mail" size={18} /> <span>Direct site assessments &amp; estimates</span></p>
+        <Link className="footer-cta" to="/quote">Request a free quote <Icon name="arrow" size={16} /></Link>
       </div>
     </div>
     <div className="footer-bottom">
       <div className="container">
         <span>© {new Date().getFullYear()} VoltTrackSolar Solutions. All rights reserved.</span>
-        <span>Designed for Aotearoa New Zealand.</span>
+
+        <a href="https://bizapps365.co.nz/" target="_blank" rel="noopener noreferrer">
+          Designed &amp; Developed by BizApp365.
+        </a>
       </div>
     </div>
   </footer>;

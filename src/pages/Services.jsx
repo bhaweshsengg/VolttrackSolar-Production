@@ -18,7 +18,7 @@ const whatWeDoSections = [
     points: [
       "Custom rooftop string and hybrid design tailored to your roof pitch, azimuth, and shade profiles",
       "Tier-1 N-Type TOPCon and bifacial modules with anti-reflective, marine-grade tempered glass",
-      "Full lines company connection approvals (Vector, Powerco, Orion, Aurora, etc.) and net metering",
+      "Full lines company connection approvals (Wellington Electricity, Electra, Powerco, etc.) and net metering",
       "Commercial peak-demand reduction and agricultural dairy shed / packhouse solar optimization",
       "Real-time mobile app generation monitoring with kilowatt-level production telemetry"
     ],
@@ -173,8 +173,8 @@ export default function Services() {
     }
   }, [location]);
 
-  const filteredSections = activeFilter === "all" 
-    ? whatWeDoSections 
+  const filteredSections = activeFilter === "all"
+    ? whatWeDoSections
     : whatWeDoSections.filter(s => s.id === activeFilter);
 
   return (
@@ -190,7 +190,7 @@ export default function Services() {
         <div className="container">
           <div className="services-jump-header">
             <span className="eyebrow green">Our 6 Core Capabilities</span>
-            <h2>What We Do for New Zealand Homes &amp; Businesses</h2>
+            <h2>What We Do for Wellington Region Homes &amp; Businesses</h2>
             <p>Select any category below to jump directly to detailed specifications and custom quote options.</p>
           </div>
 

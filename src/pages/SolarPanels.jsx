@@ -18,8 +18,8 @@ const features = [
   },
   {
     icon: 'shield',
-    title: 'NZ Marine & Salt-Mist Certified',
-    desc: 'Rigorously tested to withstand high coastal humidity, salt-spray corrosion, and extreme UV levels characteristic of Aotearoa.'
+    title: 'NZ Marine & Salt-Mist Certified (IEC 61701)',
+    desc: 'Certified to withstand coastal Cook Strait salt spray, maritime humidity, and intense UV radiation across Greater Wellington.'
   },
   {
     icon: 'check',
@@ -29,12 +29,13 @@ const features = [
 ];
 
 const specs = [
-  ['Rated Module Wattage', '440W – 620W+'],
-  ['Peak Conversion Efficiency', '22.8%'],
+  ['Rated Module Wattage', '440W – 620W+ Tier-1 Modules'],
+  ['Peak Conversion Efficiency', '22.8% TOPCon Efficiency'],
   ['Cell Technology', 'Mono-crystalline N-Type TOPCon / Bifacial'],
-  ['Mechanical Wind Load', 'Up to 5400 Pa Front / 2400 Pa Rear (NZ High Wind Zones)'],
+  ['Mechanical Wind Load', 'Up to 5400 Pa Front / 2400 Pa Rear (Wellington Extra High Wind Zones)'],
+  ['Corrosion Resistance', 'IEC 61701 Salt Mist (Severity 6) & IEC 62716 Ammonia'],
   ['Degradation Rate', '≤ 1.0% First Year, ≤ 0.4% Annual Degradation'],
-  ['Frame Construction', 'Anodized Marine-Grade Aluminium (Black or Silver)']
+  ['Frame Construction', 'Anodized Marine-Grade Aluminium (All-Black or Silver)']
 ];
 
 export default function SolarPanels() {
@@ -75,9 +76,9 @@ export default function SolarPanels() {
           <ScrollReveal>
             <div>
               <span className="eyebrow">Engineering Specifications</span>
-              <h2>Built to endure New Zealand’s toughest environments.</h2>
-              <p>Whether you require sleek all-black rooftop panels for a modern residential home or heavy-duty bifacial arrays for commercial properties, our panels deliver dependable output.</p>
-              
+              <h2>Built to endure the Greater Wellington Region’s toughest environments.</h2>
+              <p>Whether you require sleek all-black rooftop panels for a modern home or heavy-duty bifacial arrays for commercial properties across Wellington, our panels deliver dependable output in all weather conditions.</p>
+
               <div className="table-responsive" style={{ marginTop: '24px' }}>
                 <table className="comparison-table">
                   <tbody>

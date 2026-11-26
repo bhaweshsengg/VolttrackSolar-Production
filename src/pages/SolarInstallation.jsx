@@ -9,30 +9,32 @@ const steps = [
   {
     step: '01',
     title: 'Site & Structural Assessment',
-    desc: 'Our engineers evaluate roof condition, structural rafter load capacities, orientation, and local wind zones across New Zealand.'
+    desc: 'Our engineers evaluate roof condition, structural rafter load capacities, solar orientation, and specific wind zones across Greater Wellington and New Zealand.'
   },
   {
     step: '02',
-    title: 'Network Consenting & Approvals',
-    desc: 'We manage full compliance with your local Lines Company (Vector, Powerco, Orion, etc.) and council requirements before commencing work.'
+    title: 'Network Consenting & Lines Approvals',
+    desc: 'We manage 100% of the paperwork with Wellington Electricity, Electra, Powerco, and local councils before commencing any installation.'
   },
   {
     step: '03',
     title: 'Certified Master Installation',
-    desc: 'Registered electricians and solar installers mount arrays with marine-grade fasteners, watertight flashings, and precision wiring.'
+    desc: 'Registered NZ electricians mount arrays with Clenergy S6 cyclone-rated racking, marine-grade fasteners, watertight non-penetrating brackets, and precision wiring.'
   },
   {
     step: '04',
-    title: 'Commissioning & COV Certification',
-    desc: 'System testing, live grid synchronization, safety verification, and full handover documentation with Certificate of Verification (COV).'
+    title: 'Commissioning & COC / ROI Certification',
+    desc: 'Complete system testing, export meter coordination, live synchronization, and official Certificate of Compliance (COC) & Record of Inspection (ROI).'
   }
 ];
 
 const standards = [
   'AS/NZS 5033: Installation and safety requirements for photovoltaic (PV) arrays',
   'AS/NZS 4777.2: Grid connection of energy systems via inverters',
-  'AS/NZS 3000: Electrical Installations (Wiring Rules)',
-  'NZ Building Code Compliant & high wind zone engineering certified'
+  'AS/NZS 3000: Electrical Installations (Australian/New Zealand Wiring Rules)',
+  'AS/NZS 5139: Electrical installations — Safety of battery energy storage systems (BESS)',
+  'Clenergy S6 cyclone-rated mounting certified for Wellington High, Very High & Extra High wind zones (AS/NZS 1170.2)',
+  'Wellington Electricity, Electra & Powerco Distributed Generation (Part 6) grid approvals'
 ];
 
 export default function SolarInstallation() {
@@ -41,7 +43,7 @@ export default function SolarInstallation() {
       <PageHero
         eyebrow="Services • Installation"
         title="Solar Installation"
-        text="Turnkey solar installation services for New Zealand homes and businesses by registered electricians and certified solar engineers."
+        text="Turnkey solar installation services for Wellington region homes and businesses by registered electricians and certified solar engineers."
       />
 
       <section className="section">
@@ -83,9 +85,9 @@ export default function SolarInstallation() {
           <ScrollReveal>
             <div>
               <span className="eyebrow">Strict Compliance Standards</span>
-              <h2>Installed strictly to New Zealand safety &amp; electrical codes.</h2>
+              <h2>Installed strictly to Wellington Region safety &amp; electrical codes.</h2>
               <p>We do not take shortcuts. Every VoltTrack installation adheres to rigorous electrical safety standards, weather-tightness warranties, and structural load calculations.</p>
-              
+
               <ul className="check-list" style={{ marginTop: '24px' }}>
                 {standards.map((std, idx) => (
                   <li key={idx}><Icon name="check" /> {std}</li>

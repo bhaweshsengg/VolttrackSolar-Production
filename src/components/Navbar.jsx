@@ -536,13 +536,13 @@ export default function Navbar() {
               </div>
             </div>
 
-            <NavLink
+            {/* <NavLink
               to="/testimonials"
               className={({ isActive }) => (isActive ? 'active' : '')}
               onClick={close}
             >
               Testimonials
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
               to="/contact"

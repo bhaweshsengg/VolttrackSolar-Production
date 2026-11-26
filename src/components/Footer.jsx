@@ -18,7 +18,7 @@ export default function Footer() {
         <Link to="/gallery">Project Gallery</Link>
         <Link to="/packages">Our Packages</Link>
         <Link to="/packages/details#package-specs">Package Specifications</Link>
-        <Link to="/testimonials">Testimonials</Link>
+        {/* <Link to="/testimonials">Testimonials</Link> */}
         <Link to="/contact">Contact</Link>
       </div>
       <div>

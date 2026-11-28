@@ -89,7 +89,7 @@ export default function Navbar() {
       <div className="topbar">
         <div className="container topbar-inner">
           <span>
-            <Icon name="pin" size={15} /> Serving Greater Wellington &amp; Wellington Region
+            <Icon name="pin" size={15} /> Serving Greater Wellington Region
           </span>
           <span className="contact-actions">
             <span className="specialist-text">
